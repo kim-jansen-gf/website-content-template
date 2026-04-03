@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contenttemplate Homepage — Tiny Spirit Lodges</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Mona Sans', 'Inter', -apple-system, sans-serif;
+    background: #f5f3ef;
+    color: #1a1a1a;
+    padding: 40px 20px 80px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .top-bar {
+    background: #BDF4AC;
+    border-radius: 16px 16px 0 0;
+    padding: 28px 36px 22px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .top-bar-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: #1f6614;
+    margin-bottom: 6px;
+  }
+
+  .top-bar-title {
+    font-size: 26px;
+    font-weight: 500;
+    color: #0f3a09;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+
+  .top-bar-desc {
+    font-size: 14px;
+    color: #2d6a22;
+    max-width: 560px;
+  }
+
+  .card {
+    background: #ffffff;
+    border-left: 1px solid #e8e5df;
+    border-right: 1px solid #e8e5df;
+    padding: 32px 36px;
+    border-bottom: 1px solid #e8e5df;
+  }
+
+  .card:last-of-type {
+    border-radius: 0 0 16px 16px;
+    border-bottom: 1px solid #e8e5df;
+  }
+
+  .card-alt {
+    background: #faf9f7;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 4px;
+  }
+
+  .section-title {
+    font-size: 17px;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+
+  .section-hint {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 24px;
+  }
+
+  .field-group {
+    margin-bottom: 20px;
+  }
+
+  .field-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .field-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 7px;
+  }
+
+  .badge {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: #BDF4AC;
+    color: #1f6614;
+  }
+
+  input[type="text"], textarea {
+    width: 100%;
+    background: #f7f6f3;
+    border: 1px solid #e2dfd8;
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 14px;
+    color: #1a1a1a;
+    font-family: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    resize: none;
+    line-height: 1.55;
+  }
+
+  input[type="text"]:focus, textarea:focus {
+    outline: none;
+    border-color: #7dd86a;
+    box-shadow: 0 0 0 3px rgba(189,244,172,0.4);
+    background: #fff;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: #bbb;
+    font-style: italic;
+  }
+
+  .counter-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+  }
+
+  .counter {
+    font-size: 11px;
+    color: #bbb;
+    transition: color 0.2s;
+  }
+
+  .counter.warn { color: #c8831a; font-weight: 600; }
+  .counter.over { color: #c0392b; font-weight: 600; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .divider {
+    height: 1px;
+    background: #ece9e3;
+    margin: 24px 0;
+  }
+
+  .progress-section {
+    background: #f0faea;
+    border-left: 1px solid #c8efc0;
+    border-right: 1px solid #c8efc0;
+    border-bottom: 1px solid #c8efc0;
+    border-radius: 0 0 16px 16px;
+    padding: 24px 36px 32px;
+  }
+
+  .progress-label {
+    font-size: 13px;
+    color: #3a7a2d;
+    margin-bottom: 10px;
+  }
+
+  .progress-track {
+    height: 4px;
+    background: #c8efc0;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: #2d9e1a;
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  .export-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #BDF4AC;
+    border: none;
+    border-radius: 100px;
+    padding: 12px 26px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a5e11;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s, transform 0.1s;
+  }
+
+  .export-btn:hover { background: #a8ed97; }
+  .export-btn:active { transform: scale(0.98); }
+
+  .export-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: 1px solid #c8efc0;
+    border-radius: 100px;
+    padding: 12px 26px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2d7a22;
+    cursor: pointer;
+    font-family: inherit;
+    margin-left: 10px;
+    transition: background 0.15s;
+  }
+
+  .copy-btn:hover { background: #e8f9e2; }
+
+  .btn-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .toast {
+    display: none;
+    font-size: 13px;
+    color: #2d7a22;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: #d4f7c5;
+    border-radius: 8px;
+  }
+
+  .toast.show { display: inline-flex; }
+
+  @media (max-width: 560px) {
+    .top-bar, .card, .progress-section { padding: 22px 20px; }
+    .two-col { grid-template-columns: 1fr; }
+    .top-bar-title { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="top-bar">
+    <p class="top-bar-eyebrow">Content template</p>
+    <h1 class="top-bar-title">Homepage — Tiny Spirit Lodges</h1>
+    <p class="top-bar-desc">Vul de teksten in voor jullie website. Let op de maximumaantallen per veld — die worden straks rechtstreeks in de website gezet. Gebruik de knop onderaan om alles te kopiëren.</p>
+  </div>
+
+  <!-- Hero -->
+  <div class="card">
+    <p class="section-label">Sectie 1</p>
+    <h2 class="section-title">Hero</h2>
+    <p class="section-hint">De grote openingstekst bovenaan de homepage</p>
+
+    <div class="field-group">
+      <label class="field-label">Hoofdtitel <span class="badge">max 60 tekens</span></label>
+      <input type="text" id="f-h1" maxlength="60" placeholder="bijv. Jouw eigen plekje in de natuur..." oninput="count(this,'c-h1',60)">
+      <div class="counter-row"><span class="counter" id="c-h1">0 / 60</span></div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Subtitel / tagline <span class="badge">max 120 tekens</span></label>
+      <input type="text" id="f-sub" maxlength="120" placeholder="bijv. Verborgen in het groen, dicht bij alles wat telt." oninput="count(this,'c-sub',120)">
+      <div class="counter-row"><span class="counter" id="c-sub">0 / 120</span></div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Tekst op de knop (CTA) <span class="badge">max 30 tekens</span></label>
+      <input type="text" id="f-cta" maxlength="30" placeholder="bijv. Bekijk de lodge" oninput="count(this,'c-cta',30)">
+      <div class="counter-row"><span class="counter" id="c-cta">0 / 30</span></div>
+    </div>
+  </div>
+
+  <!-- Contentblock -->
+  <div class="card card-alt">
+    <p class="section-label">Sectie 2</p>
+    <h2 class="section-title">Contentblock — "Voor wie?"</h2>
+    <p class="section-hint">Twee kolommen: een koptekst links en een alinea rechts</p>
+
+    <div class="two-col" style="margin-bottom:20px;">
+      <div class="field-group" style="margin:0;">
+        <label class="field-label">Koptekst <span class="badge">max 40 tekens</span></label>
+        <input type="text" id="f-kop" maxlength="40" placeholder="bijv. Voor wie?" oninput="count(this,'c-kop',40)">
+        <div class="counter-row"><span class="counter" id="c-kop">0 / 40</span></div>
+      </div>
+      <div class="field-group" style="margin:0;">
+        <label class="field-label">Tekst op de knop <span class="badge">max 30 tekens</span></label>
+        <input type="text" id="f-btn" maxlength="30" placeholder="bijv. Meer over de lodge" oninput="count(this,'c-btn',30)">
+        <div class="counter-row"><span class="counter" id="c-btn">0 / 30</span></div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Alineatekst <span class="badge">max 500 tekens</span></label>
+      <textarea id="f-body" rows="6" maxlength="500" placeholder="Omschrijf voor wie jullie lodge ideaal is. Denk aan koppels, gezinnen, natuurliefhebbers..." oninput="count(this,'c-body',500)"></textarea>
+      <div class="counter-row"><span class="counter" id="c-body">0 / 500</span></div>
+    </div>
+  </div>
+
+  <!-- USP's -->
+  <div class="card">
+    <p class="section-label">Sectie 3</p>
+    <h2 class="section-title">USP's</h2>
+    <p class="section-hint">Drie korte, krachtige voordelen van jullie lodge</p>
+
+    <div class="field-group">
+      <label class="field-label">USP 1 <span class="badge">max 60 tekens</span></label>
+      <input type="text" id="f-usp1" maxlength="60" placeholder="bijv. Midden in de natuur, weg van de drukte" oninput="count(this,'c-usp1',60)">
+      <div class="counter-row"><span class="counter" id="c-usp1">0 / 60</span></div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">USP 2 <span class="badge">max 60 tekens</span></label>
+      <input type="text" id="f-usp2" maxlength="60" placeholder="bijv. Volledig ingericht voor twee personen" oninput="count(this,'c-usp2',60)">
+      <div class="counter-row"><span class="counter" id="c-usp2">0 / 60</span></div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">USP 3 <span class="badge">max 60 tekens</span></label>
+      <input type="text" id="f-usp3" maxlength="60" placeholder="bijv. Duurzaam gebouwd, lokale materialen" oninput="count(this,'c-usp3',60)">
+      <div class="counter-row"><span class="counter" id="c-usp3">0 / 60</span></div>
+    </div>
+  </div>
+
+  <!-- SEO -->
+  <div class="card card-alt">
+    <p class="section-label">Sectie 4</p>
+    <h2 class="section-title">SEO metateksten</h2>
+    <p class="section-hint">Zichtbaar in zoekmachines — niet op de pagina zelf</p>
+
+    <div class="field-group">
+      <label class="field-label">Metatitel <span class="badge">max 60 tekens</span></label>
+      <input type="text" id="f-mt" maxlength="60" placeholder="bijv. Tiny Spirit Lodges — Jouw retreat in de natuur" oninput="count(this,'c-mt',60)">
+      <div class="counter-row"><span class="counter" id="c-mt">0 / 60</span></div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Metabeschrijving <span class="badge">max 160 tekens</span></label>
+      <textarea id="f-md" rows="3" maxlength="160" placeholder="bijv. Boek jouw verblijf in een sfeervolle tiny lodge midden in de natuur. Rusten, verbinden, bijkomen." oninput="count(this,'c-md',160)"></textarea>
+      <div class="counter-row"><span class="counter" id="c-md">0 / 160</span></div>
+    </div>
+  </div>
+
+  <!-- Voortgang + export -->
+  <div class="progress-section">
+    <p class="progress-label" id="prog-label">0 van 11 velden ingevuld</p>
+    <div class="progress-track"><div class="progress-bar" id="prog-bar"></div></div>
+
+    <div class="btn-row">
+      <button class="export-btn" onclick="copyAll()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="5" width="9" height="9" rx="2"/>
+          <path d="M11 5V3a2 2 0 0 0-2-2H3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/>
+        </svg>
+        Kopieer alle ingevulde teksten
+      </button>
+
+      <button class="copy-btn" onclick="downloadTxt()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 2v9M4 8l4 4 4-4"/>
+          <path d="M2 14h12"/>
+        </svg>
+        Download als .txt
+      </button>
+
+      <span class="toast" id="toast">✓ Gekopieerd!</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const FIELDS = [
+    { id: 'f-h1',   label: 'Hoofdtitel',          max: 60  },
+    { id: 'f-sub',  label: 'Subtitel / tagline',   max: 120 },
+    { id: 'f-cta',  label: 'CTA-knoptekst',        max: 30  },
+    { id: 'f-kop',  label: 'Koptekst',             max: 40  },
+    { id: 'f-btn',  label: 'Knoptekst contentblock', max: 30 },
+    { id: 'f-body', label: 'Alineatekst',           max: 500 },
+    { id: 'f-usp1', label: 'USP 1',                max: 60  },
+    { id: 'f-usp2', label: 'USP 2',                max: 60  },
+    { id: 'f-usp3', label: 'USP 3',                max: 60  },
+    { id: 'f-mt',   label: 'Metatitel',            max: 60  },
+    { id: 'f-md',   label: 'Metabeschrijving',     max: 160 },
+  ];
+
+  function count(el, counterId, max) {
+    const len = el.value.length;
+    const counter = document.getElementById(counterId);
+    counter.textContent = len + ' / ' + max;
+    counter.className = 'counter' + (len >= max ? ' over' : len >= max * 0.85 ? ' warn' : '');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    let filled = 0;
+    FIELDS.forEach(f => {
+      const el = document.getElementById(f.id);
+      if (el && el.value.trim().length > 0) filled++;
+    });
+    const pct = Math.round((filled / FIELDS.length) * 100);
+    document.getElementById('prog-bar').style.width = pct + '%';
+    document.getElementById('prog-label').textContent = filled + ' van ' + FIELDS.length + ' velden ingevuld';
+  }
+
+  function buildText() {
+    let out = 'CONTENTTEMPLATE HOMEPAGE — TINY SPIRIT LODGES\n';
+    out += '='.repeat(50) + '\n\n';
+    let section = '';
+    const sections = {
+      'f-h1': 'HERO', 'f-sub': 'HERO', 'f-cta': 'HERO',
+      'f-kop': 'CONTENTBLOCK', 'f-btn': 'CONTENTBLOCK', 'f-body': 'CONTENTBLOCK',
+      'f-usp1': "USP'S", 'f-usp2': "USP'S", 'f-usp3': "USP'S",
+      'f-mt': 'SEO', 'f-md': 'SEO',
+    };
+    FIELDS.forEach(f => {
+      const el = document.getElementById(f.id);
+      const s = sections[f.id];
+      if (s !== section) {
+        out += '\n' + s + '\n' + '-'.repeat(30) + '\n';
+        section = s;
+      }
+      out += f.label + ':\n' + (el.value.trim() || '(niet ingevuld)') + '\n\n';
+    });
+    return out;
+  }
+
+  function copyAll() {
+    navigator.clipboard.writeText(buildText()).then(() => {
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    });
+  }
+
+  function downloadTxt() {
+    const blob = new Blob([buildText()], { type: 'text/plain;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'contenttemplate-tiny-spirit-lodges.txt';
+    a.click();
+  }
+</script>
+
+</body>
+</html>
